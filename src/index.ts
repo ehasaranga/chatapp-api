@@ -32,10 +32,12 @@ export const DI = {} as {
 
 export const init = async function () {
 
-    // DI Setup
+    // Load Entities 
+    const entities = modules.map(item => item.entity);
 
+    // DI Setup
     DI.orm = await MikroORM.init<MongoDriver>(defineConfig({
-        entities: modules.map(item => item.entity),
+        entities: entities,
         dbName: 'chatapp',
         debug: true,
     }));
