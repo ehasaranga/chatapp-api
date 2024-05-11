@@ -7,7 +7,7 @@ import dotenv from 'dotenv';
 import User from './models/User';
 import { joinUrl } from '@core/util';
 import { MikroORM, RequestContext } from '@mikro-orm/core';
-import { EntityManager, MongoDriver } from '@mikro-orm/mongodb';
+import { EntityManager, MongoDriver, defineConfig } from '@mikro-orm/mongodb';
 import { modelObj } from '@core';
 import Message from './models/Message';
 
@@ -34,12 +34,11 @@ export const init = async function () {
 
     // DI Setup
 
-    DI.orm = await MikroORM.init<MongoDriver>({
-        type: 'mongo',
+    DI.orm = await MikroORM.init<MongoDriver>(defineConfig({
         entities: modules.map(item => item.entity),
         dbName: 'chatapp',
         debug: true,
-    });
+    }));
 
     DI.em = DI.orm.em as EntityManager;
 

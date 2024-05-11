@@ -1,5 +1,5 @@
 import { defineModel } from "@core";
-import { Message } from "./MessageEntity";
+import { Message } from "./Message.entity";
 
 export default defineModel<'Message'>({
     name: 'Message',
