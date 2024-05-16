@@ -6,8 +6,11 @@ import morgan from 'morgan';
 import dotenv from 'dotenv';
 import User from './models/User';
 import { joinUrl } from '@core/util';
+
 import { MikroORM, RequestContext } from '@mikro-orm/core';
 import { EntityManager, MongoDriver, defineConfig } from '@mikro-orm/mongodb';
+import { TsMorphMetadataProvider } from '@mikro-orm/reflection';
+
 import { modelObj } from '@core';
 import Message from './models/Message';
 
@@ -37,6 +40,7 @@ export const init = async function () {
 
     // DI Setup
     DI.orm = await MikroORM.init<MongoDriver>(defineConfig({
+        metadataProvider: TsMorphMetadataProvider,
         entities: entities,
         dbName: 'chatapp',
         debug: true,
