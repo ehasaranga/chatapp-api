@@ -1,7 +1,7 @@
-import { endpointHandler } from "@core/endpointHandler";
+// import { endpointHandler } from "@core/endpointHandler";
 
-export const getAll = (entity: any) => endpointHandler({
-    handler: (req, res) => {
+// export const getAll = (entity: any) => endpointHandler({
+//     handler: (req, res) => {
 
-    }
-})
+//     }
+// })
