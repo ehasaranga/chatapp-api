@@ -14,7 +14,6 @@
   "keywords": [],
   "author": "Eranda Hasaranga",
   "license": "ISC",
-  "type": "module",
   "dependencies": {
     "@mikro-orm/core": "^6.2.5",
     "@mikro-orm/mongodb": "^6.2.5",
