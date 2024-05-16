@@ -2,7 +2,7 @@ import { endpointHandler } from "@core";
 
 export const defineModel = <N extends string, T extends TDefineModel<N> = TDefineModel<N>>(args: TDefineModelArgs<N>): T => {
 
-    const crud = typeof args.crud === 'undefined' ? true : args.crud;
+    // const crud = typeof args.crud === 'undefined' ? true : args.crud;
 
     const endpoints = [...args.endpoints]
 
