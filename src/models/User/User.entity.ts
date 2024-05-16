@@ -5,7 +5,10 @@ import { BaseEntity } from "../BaseEntity";
 export class User extends BaseEntity {
 
   @Property()
-  name: string;
+  firstName: string;
+
+  @Property()
+  lastName: string;
 
   @Property()
   email: string;
@@ -13,9 +16,10 @@ export class User extends BaseEntity {
   @Property({ nullable: true })
   age?: number;
 
-  constructor(name: string, email: string) {
+  constructor(firstName: string, lastName: string, email: string) {
     super();
-    this.name = name;
+    this.firstName = firstName;
+    this.lastName = lastName;
     this.email = email;
   }
 
