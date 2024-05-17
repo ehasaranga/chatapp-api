@@ -2,33 +2,37 @@
   "compilerOptions": {
     /* Visit https://aka.ms/tsconfig to read more about this file */
 
+    /* Base Options */
+    "esModuleInterop": true,                             
+    "skipLibCheck": true,                                
+    "target": "ES2022",
+    "allowJs": true,
+    "resolveJsonModule": true,                        
+    "moduleDetection": "force",                    
+    "isolatedModules": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "forceConsistentCasingInFileNames": true,
+
+    /* Strictness */
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+
+    "moduleResolution": "NodeNext",
+    "module": "NodeNext",
     "baseUrl": "./",                                  
     "rootDir": "./src",                                  
     "outDir": "dist",
+    "sourceMap": true,
     
-    "esModuleInterop": true,                             
-    "skipLibCheck": true,                                
-    "target": "ES2016",                                  
-    "resolveJsonModule": true,                        
-    "moduleDetection": "force",                    
-
-    "lib": ["ES2022"],                                        
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-
-    "moduleResolution": "Node",
-    "module": "CommonJS",
-
     "paths": {
       "@core" : ["./src/core/index.ts"],
       "@core/*" : ["./src/core/*"]
     },
 
-    "isolatedModules": true,
-    "forceConsistentCasingInFileNames": true,
+    "lib": ["ES2022"],  
 
-    "strict": true,
-    "alwaysStrict": true,
   },
   "include": ["src/**/*.ts"],
   "exclude": ["dist", "node_modules"], 
