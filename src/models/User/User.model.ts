@@ -4,10 +4,12 @@ import UserCreate from "./logic/User.create";
 import UserUpdate from "./logic/User.update";
 import UserGetAll from "./logic/User.getAll";
 import UserGetOne from "./logic/User.getOne";
+import { DI } from "@app";
+import { EntityRepository } from "@mikro-orm/mongodb";
 
-export default defineModel<'User'>({
+export const UserModel = defineModel<'User', EntityRepository<User>>({
     name: 'User',
-    crud: true,
     entity: User,
+    repo: DI.orm.em.getRepository(User),
     endpoints: [UserGetAll, UserGetOne, UserCreate, UserUpdate]
 })

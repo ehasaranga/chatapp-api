@@ -1,19 +1,19 @@
-import { DI } from "@app";
+
+import { UserModel } from "@app/models/User/User.model";
 import { endpointHandler } from "@core";
 
 export default endpointHandler({
     path: '',
     method: 'post',
-    handler: (req, res) => {
+    handler: async (req, res) => {
 
-        const app = DI;
+        const repo = UserModel.repo;
 
+        const sample = {
+            test: 'Hi There'
+        }
 
-        const user = {
-            name: 'getting values',
-        };
-
-        res.send(user)
+        res.send(sample)
 
     }
 })

@@ -4,7 +4,6 @@ import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
-import User from './models/User';
 import { joinUrl } from '@core/util';
 
 import { MikroORM, RequestContext } from '@mikro-orm/core';
@@ -12,6 +11,7 @@ import { EntityManager, MongoDriver, defineConfig } from '@mikro-orm/mongodb';
 
 import { modelObj } from '@core';
 import Message from './models/Message';
+import { UserModel } from '@app/models/User/User.model';
 
 dotenv.config();
 
@@ -19,7 +19,7 @@ const app: Application = express();
 const PORT = process.env.PORT || 3000;
 
 const modules = [
-    User, 
+    UserModel, 
     Message
 ];
 

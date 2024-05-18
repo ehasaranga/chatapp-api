@@ -1,6 +1,6 @@
 import { endpointHandler } from "@core";
 
-export const defineModel = <N extends string, T extends TDefineModel<N> = TDefineModel<N>>(args: TDefineModelArgs<N>): T => {
+export const defineModel = <N extends string, K,  T extends TDefineModel<N, K> = TDefineModel<N, K>>(args: TDefineModel<N, K>): T => {
 
     // const crud = typeof args.crud === 'undefined' ? true : args.crud;
 
@@ -9,12 +9,13 @@ export const defineModel = <N extends string, T extends TDefineModel<N> = TDefin
     return {
         name: args.name,
         entity: args.entity,
-        endpoints
+        endpoints,
+        repo: args.repo
     } as T
 
 }
 
-export const modelObj = <T extends TDefineModel<string>, K extends T['name'] = T['name']> (models: T[]) => {
+export const modelObj = <T extends TDefineModel<string, undefined>, K extends T['name'] = T['name']> (models: T[]) => {
 
     const obj = models.reduce((acc, item) => {
 
@@ -28,14 +29,10 @@ export const modelObj = <T extends TDefineModel<string>, K extends T['name'] = T
 
 }
 
-export type TDefineModel <N extends string> = {
+export type TDefineModel <N extends string, K> = {
     name: Capitalize<N>;
     entity: any;
-    endpoints: ReturnType<typeof endpointHandler>[]
+    endpoints: ReturnType<typeof endpointHandler>[];
+    repo: K;
 }
-
-type TDefineModelArgs <N extends string> = TDefineModel<N> & {
-    crud?: boolean;
-}
-
 
