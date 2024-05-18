@@ -29,7 +29,7 @@ export const modelObj = <T extends TDefineModel<string, undefined>, K extends T[
 
 }
 
-export type TDefineModel <N extends string, K> = {
+export type TDefineModel <N extends string, K = undefined> = {
     name: Capitalize<N>;
     entity: any;
     endpoints: ReturnType<typeof endpointHandler>[];
