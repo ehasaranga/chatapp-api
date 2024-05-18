@@ -5,22 +5,15 @@ import { BaseEntity } from "../BaseEntity";
 export class User extends BaseEntity {
 
   @Property()
-  firstName: string;
+  firstName!: string;
 
   @Property()
-  lastName: string;
+  lastName!: string;
 
   @Property()
-  email: string;
+  email!: string;
 
   @Property({ nullable: true })
   age?: number;
-
-  constructor(firstName: string, lastName: string, email: string) {
-    super();
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.email = email;
-  }
 
 }

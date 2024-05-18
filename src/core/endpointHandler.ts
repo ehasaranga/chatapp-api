@@ -7,7 +7,7 @@ export function endpointHandler(options: TEndpointHandler) {
         return {
             path: '',
             method: 'get',
-            handler: options
+            handler: options as THandler
         } as const
 
     }

@@ -1,15 +1,16 @@
-import { DI } from "@app";
 import { endpointHandler } from "@core";
 
 export default endpointHandler({
-    path: '',
-    method: 'post',
+    path: ':id',
+    method: 'get',
     handler: (req, res) => {
 
-        const app = DI;
+        if (!req.params.id) return res.send('Invalid Url')
 
+        const id = parseInt(req.params.id)
 
         const user = {
+            id: id,
             name: 'getting values',
         };
 

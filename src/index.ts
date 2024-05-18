@@ -32,7 +32,7 @@ export const DI = {} as {
     modules: typeof moduleList
 };
 
-export const init = async function () {
+export const App = async function () {
 
     // Load Entities 
     const entities = modules.map(item => item.entity);
@@ -86,6 +86,8 @@ export const init = async function () {
         console.log(`Server Port: http://localhost:${PORT}`);
 
     })
+
+    return DI;
 
 }()
 

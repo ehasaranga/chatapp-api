@@ -21,14 +21,15 @@
 
     "moduleResolution": "NodeNext",
     "module": "NodeNext",
-    "baseUrl": "./",                                  
-    "rootDir": "./src",                                  
+    "baseUrl": ".",
     "outDir": "dist",
     "sourceMap": true,
     
     "paths": {
-      "@core" : ["./src/core/index.ts"],
-      "@core/*" : ["./src/core/*"]
+      "@core" : ["src/core/index.ts"],
+      "@core/*" : ["src/core/*"],
+      "@app" : ["src/index.ts"],
+      "@app/*" : ["src/*"],
     },
 
     "lib": ["ES2022"],  
