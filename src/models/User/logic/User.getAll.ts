@@ -1,11 +1,15 @@
 import { endpointHandler } from "@core";
 
-export default endpointHandler((req, res) => {
+export default endpointHandler({
+    path: '/',
+    method: 'get',
+    handler: async (req, res) => {
+
+        const user = {
+            name: 'getting values',
+        };
     
+        res.send(user)
 
-    const user = {
-        name: 'getting values',
-    };
-
-    res.send(user)
+    }
 })

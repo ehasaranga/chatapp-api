@@ -1,5 +1,5 @@
 import { defineModel } from "@core";
-import { User } from "./User.entity";
+import { UserEntity } from "./User.entity";
 import UserCreate from "./logic/User.create";
 import UserUpdate from "./logic/User.update";
 import UserGetAll from "./logic/User.getAll";
@@ -7,9 +7,10 @@ import UserGetOne from "./logic/User.getOne";
 import { DI } from "@app";
 import { EntityRepository } from "@mikro-orm/mongodb";
 
-export const UserModel = defineModel<'User', EntityRepository<User>>({
+export const User = defineModel<'User', EntityRepository<UserEntity>>({
     name: 'User',
-    entity: User,
-    repo: DI.orm.em.getRepository(User),
+    entity: UserEntity,
+    repo: () => DI.orm.em.getRepository(UserEntity),
+    // repo: null,
     endpoints: [UserGetAll, UserGetOne, UserCreate, UserUpdate]
 })

@@ -1,30 +1,22 @@
 import { NextFunction, Request, RequestHandler, Response } from "express";
 
 export function endpointHandler(options: TEndpointHandler) {
-
-    if (typeof options === 'function') {
-
-        return {
-            path: '',
-            method: 'get',
-            handler: options as THandler
-        } as const
-
-    }
-
+    
     const path = options.path ? options.path : '';
 
     const method = options.method ? options.method : 'get';
 
-    const handler = (req: Request, res: Response, next: NextFunction) => {
+    const handler = async (req: Request, res: Response, next: NextFunction) => {
 
         try {
 
-            options.handler(req, res, next);
+            await options.handler(req, res, next);
 
-        } catch (e) {
+        } catch (err) {
 
-            throw Error("Error Message : " + e)
+            console.error("Error Message : " + err)
+
+            res.json(err)
 
         }
 
@@ -38,7 +30,7 @@ export function endpointHandler(options: TEndpointHandler) {
 
 }
 
-export type TEndpointHandler = THandler | {
+export type TEndpointHandler = {
     path?: string;
     method?: 'get' | 'post' | 'put' | 'patch';
     access?: []

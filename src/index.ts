@@ -7,35 +7,35 @@ import dotenv from 'dotenv';
 import { joinUrl } from '@core/util';
 
 import { MikroORM, RequestContext } from '@mikro-orm/core';
-import { EntityManager, MongoDriver, defineConfig } from '@mikro-orm/mongodb';
+import { EntityManager, EntityRepository, MongoDriver, defineConfig } from '@mikro-orm/mongodb';
 
-import { modelObj } from '@core';
-import Message from './models/Message';
-import { UserModel } from '@app/models/User/User.model';
+import { User } from '@app/models/User/User';
+import { Message } from '@app/models/Message/Message';
+import { TDefineModel } from '@core';
 
 dotenv.config();
 
 const app: Application = express();
 const PORT = process.env.PORT || 3000;
 
-const modules = [
-    UserModel, 
+const modules = {
+    User,
     Message
-];
+}
 
-const moduleList = modelObj(modules);
-
-export const DI = {} as {
+export type TDI = {
     server: http.Server;
     orm: MikroORM,
     em: EntityManager,
-    modules: typeof moduleList
-};
+    modules: typeof modules
+}
+
+export const DI = {} as TDI
 
 export const App = async function () {
 
     // Load Entities 
-    const entities = modules.map(item => item.entity);
+    const entities = Object.values(modules).map(item => item.entity);
 
     // DI Setup
     DI.orm = await MikroORM.init<MongoDriver>(defineConfig({
@@ -46,7 +46,7 @@ export const App = async function () {
 
     DI.em = DI.orm.em as EntityManager;
 
-    DI.modules = moduleList
+    DI.modules = modules
 
     // DI Setup - END
 
@@ -69,7 +69,7 @@ export const App = async function () {
 
     // Setup Routes
 
-    for (const module of modules) {
+    for (const module of Object.values(modules)) {
 
         for (const endpoint of module['endpoints']) {
 
