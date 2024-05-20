@@ -7,11 +7,10 @@ import dotenv from 'dotenv';
 import { joinUrl } from '@core/util';
 
 import { MikroORM, RequestContext } from '@mikro-orm/core';
-import { EntityManager, EntityRepository, MongoDriver, defineConfig } from '@mikro-orm/mongodb';
+import { EntityManager, MongoDriver, defineConfig } from '@mikro-orm/mongodb';
 
 import { User } from '@app/models/User/User';
 import { Message } from '@app/models/Message/Message';
-import { TDefineModel } from '@core';
 
 dotenv.config();
 

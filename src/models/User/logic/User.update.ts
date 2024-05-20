@@ -1,4 +1,4 @@
-import { endpointHandler } from "@core";
+import { endpoint } from "@core";
 
 type User = {
     id: number;
@@ -16,7 +16,7 @@ function get(id: any) {
 
 }
 
-export default endpointHandler({
+export default endpoint({
     path: ':id/:date',
     method: 'get',
     handler: (req, res) => {

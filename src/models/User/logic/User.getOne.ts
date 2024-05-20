@@ -1,6 +1,6 @@
-import { endpointHandler } from "@core";
+import { endpoint } from "@core";
 
-export default endpointHandler({
+export default endpoint({
     path: ':id',
     method: 'get',
     handler: (req, res) => {

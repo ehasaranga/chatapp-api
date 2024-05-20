@@ -1,6 +1,6 @@
 import { NextFunction, Request, RequestHandler, Response } from "express";
 
-export function endpointHandler(options: TEndpointHandler) {
+export function endpoint(options: TEndpointHandler) {
     
     const path = options.path ? options.path : '';
 
@@ -14,9 +14,18 @@ export function endpointHandler(options: TEndpointHandler) {
 
         } catch (err) {
 
-            console.error("Error Message : " + err)
+            // let errMessage = err;
+            let errMessage = '';
 
-            res.json(err)
+            if (err instanceof Error) {
+
+                errMessage = err.message
+
+            } 
+
+            console.error("Error Message : " + errMessage)
+
+            res.status(400).json(errMessage)
 
         }
 

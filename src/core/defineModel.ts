@@ -1,4 +1,4 @@
-import { endpointHandler } from "@core";
+import { endpoint } from "@core";
 
 export const defineModel = <N extends string, K, T extends TDefineModel<N, K> = TDefineModel<N, K>>(args: TDefineModel<N, K>): T => {
 
@@ -32,6 +32,6 @@ export const defineModel = <N extends string, K, T extends TDefineModel<N, K> = 
 export type TDefineModel<N extends string, K> = {
     name: Capitalize<N>;
     entity: any;
-    endpoints: ReturnType<typeof endpointHandler>[];
+    endpoints: ReturnType<typeof endpoint>[];
     repo: () => K;
 }

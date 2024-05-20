@@ -1,8 +1,8 @@
 
 import { DI } from "@app";
-import { endpointHandler } from "@core";
+import { endpoint } from "@core";
 
-export default endpointHandler({
+export default endpoint({
     path: '/',
     method: 'post',
     handler: async (req, res) => {
