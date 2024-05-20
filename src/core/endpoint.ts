@@ -14,18 +14,23 @@ export function endpoint(options: TEndpointHandler) {
 
         } catch (err) {
 
-            // let errMessage = err;
             let errMessage = '';
+            let errName = ''
 
             if (err instanceof Error) {
 
                 errMessage = err.message
+                errName = err.name
 
             } 
 
             console.error("Error Message : " + errMessage)
 
-            res.status(400).json(errMessage)
+            res.status(400).json({
+                message: errMessage,
+                name: errName,
+                data: err
+            })
 
         }
 
