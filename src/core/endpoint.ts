@@ -2,11 +2,11 @@ import { NextFunction, Request, RequestHandler, Response } from "express";
 
 export function endpoint(options: TEndpointHandler) {
     
-    const path = options.path ? options.path : '';
+    const path:string = options.path ? options.path : '';
 
-    const method = options.method ? options.method : 'get';
+    const method:typeof options.method = options.method ? options.method : 'get';
 
-    const handler = async (req: Request, res: Response, next: NextFunction) => {
+    const handler:THandler = async (req: Request, res: Response, next: NextFunction) => {
 
         try {
 
