@@ -11,6 +11,5 @@ export const User = defineModel<'User', EntityRepository<UserEntity>>({
     name: 'User',
     entity: UserEntity,
     repo: () => DI.orm.em.getRepository(UserEntity),
-    // repo: null,
     endpoints: [UserGetAll, UserGetOne, UserCreate, UserUpdate]
 })
