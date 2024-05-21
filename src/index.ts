@@ -31,7 +31,7 @@ export type TDI = {
 
 export const DI = {} as TDI
 
-export const App = async function () {
+const App = async function () {
 
     // Load Entities 
     const entities = Object.values(modules).map(item => item.entity);
