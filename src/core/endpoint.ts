@@ -1,12 +1,12 @@
 import { NextFunction, Request, RequestHandler, Response } from "express";
 
 export function endpoint(options: TEndpointHandler) {
-    
-    const path:string = options.path ? options.path : '';
 
-    const method:typeof options.method = options.method ? options.method : 'get';
+    const path: string = options.path ? options.path : '';
 
-    const handler:THandler = async (req: Request, res: Response, next: NextFunction) => {
+    const method: typeof options.method = options.method ? options.method : 'get';
+
+    const handler: THandler = async (req: Request, res: Response, next: NextFunction) => {
 
         try {
 
@@ -22,14 +22,18 @@ export function endpoint(options: TEndpointHandler) {
                 errMessage = err.message
                 errName = err.name
 
-            } 
+            }
 
             console.error("Error Message : " + errMessage)
 
             res.status(400).json({
-                message: errMessage,
-                name: errName,
-                data: err
+                errors: [{
+
+                    name: errName,
+                    message: errMessage,
+                    detail: err
+
+                }]
             })
 
         }
