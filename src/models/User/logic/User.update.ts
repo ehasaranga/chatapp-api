@@ -1,4 +1,5 @@
 import { endpoint } from "@core";
+import z from "zod";
 
 type User = {
     id: number;
@@ -19,13 +20,16 @@ function get(id: any) {
 export default endpoint({
     path: ':id/:date',
     method: 'get',
+    params: z.object({
+        id: z.number()
+    }),
     handler: (req, res) => {
 
         if (!req.params.id) return res.send('Invalid Url')
 
         console.log(req.params);
 
-        const id = parseInt(req.params.id)
+        const id = req.params.id
 
         const user = get(id);
 

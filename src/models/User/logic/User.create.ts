@@ -1,15 +1,24 @@
 
 import { DI } from "@app";
+import { User } from "@app/models/User/User";
 import { endpoint } from "@core";
+import z from "zod";
 
 export default endpoint({
     path: '/',
     method: 'post',
+    body: z.object({
+        firstname: z.string(),
+        lastname: z.string(), 
+        email: z.string().email()
+    }),
     handler: async (req, res) => {
 
         /* validate */
 
-        const user = DI.modules.User.repo().create(req.body);
+        console.log(req.body.id)
+
+        const user = User.repo().create(req.body);
 
         await DI.em.flush();
 
@@ -17,3 +26,5 @@ export default endpoint({
 
     }
 })
+
+// (property) Response<any, Record<string, any>, number>.json: (body?: any) => Response<any, Record<string, any>, number>
