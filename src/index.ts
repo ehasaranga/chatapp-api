@@ -38,7 +38,7 @@ const App = async function () {
 
     // DI Setup
     DI.orm = await MikroORM.init<MongoDriver>(defineConfig({
-        entities: entities as any,
+        entities: entities,
         dbName: 'chatapp',
         debug: true,
     }));

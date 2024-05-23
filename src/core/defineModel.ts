@@ -1,6 +1,6 @@
 import { endpoint } from "@core";
 
-export const defineModel = <N extends string,E, K, T extends TDefineModel<N, E, K> = TDefineModel<N, E, K>>(args: TDefineModel<N, E, K>) => {
+export const defineModel = <N extends string,E, K>(args: TDefineModel<N, E, K>) => {
 
     // const crud = typeof args.crud === 'undefined' ? true : args.crud;
 
@@ -29,9 +29,9 @@ export const defineModel = <N extends string,E, K, T extends TDefineModel<N, E, 
 
 // }
 
-export type TDefineModel<N extends string, Entity, K> = {
+export type TDefineModel<N extends string, E, K> = {
     name: Capitalize<N>;
-    entity: Entity;
+    entity: E;
     endpoints: ReturnType<typeof endpoint>[];
     repo: () => K;
 }

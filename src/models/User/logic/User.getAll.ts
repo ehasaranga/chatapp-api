@@ -1,3 +1,4 @@
+import { User } from "@app/models/User/User";
 import { endpoint } from "@core";
 
 export default endpoint({
@@ -5,11 +6,9 @@ export default endpoint({
     method: 'get',
     handler: async (req, res) => {
 
-        const user = {
-            name: 'getting values',
-        };
-    
-        res.send(user)
+        const data = await User.repo().findAll()
+
+        res.json(data)
 
     }
 })
