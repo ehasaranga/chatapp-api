@@ -3,15 +3,15 @@ import { endpoint, validate } from "@core";
 import z from "zod";
 
 export default endpoint({
-    path: ':userID',
+    path: ':id',
     method: 'get',
     handler: async (req, res) => {
 
         const params = validate(req.params, z.object({
-            userID: z.any()
+            id: z.number()
         }));
-        
-        const user = await User.repo().findOne({ userID: parseInt(params.userID) })
+
+        const user = await User.repo().findOneOrFail({ userID: params.id })
 
         res.send(user)
 
