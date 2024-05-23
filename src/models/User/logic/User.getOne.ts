@@ -1,17 +1,19 @@
-import { endpoint } from "@core";
+import { User } from "@app/models/User/User";
+import { endpoint, validate } from "@core";
 import z from "zod";
 
 export default endpoint({
     path: ':id',
     method: 'get',
-    params: z.object({
-        id: z.number()
-    }),
     handler: (req, res) => {
 
-        if (!req.params.id) return res.send('Invalid Url')
+        const params = validate(req.params, z.object({
+            userID: z.number()  
+        }));
 
-        const id = req.params.id
+        const id = params.userID
+
+        User.repo().findOne(params)
 
         const user = {
             id: id,

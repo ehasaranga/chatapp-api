@@ -5,9 +5,8 @@ import UserUpdate from "./logic/User.update";
 import UserGetAll from "./logic/User.getAll";
 import UserGetOne from "./logic/User.getOne";
 import { DI } from "@app";
-import { EntityRepository } from "@mikro-orm/mongodb";
 
-export const User = defineModel<'User', EntityRepository<UserEntity>>({
+export const User = defineModel({
     name: 'User',
     entity: UserEntity,
     repo: () => DI.orm.em.getRepository(UserEntity),

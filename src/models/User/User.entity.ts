@@ -5,6 +5,9 @@ import { BaseEntity } from "../BaseEntity";
 export class UserEntity extends BaseEntity {
 
   @Property()
+  userID!: number;
+
+  @Property()
   firstName!: string;
 
   @Property()
