@@ -14,16 +14,16 @@ export const validate = <TData>(data: any, schema: z.Schema<TData>) => {
 
         for (const key of Object.keys(data)) {
 
+            const keySchemaType = isObj.data.shape[key]
+            const keyDataType = typeof data[key]
+
             let keyVal;
 
             //checking whether zod schema types matches with data types, if matches continue to next key
-            if (z.instanceof(primitiveMapZod[typeof data[key]]).safeParse(isObj.data.shape[key]).success) continue;
+            if (z.instanceof(primitiveMapZod[keyDataType]).safeParse(keySchemaType).success) continue;
 
-            if (z.instanceof(ZodNumber).safeParse(isObj.data.shape[key]).success) {
-
-                keyVal = Number(data[key])
-
-            }
+            //parse to number   
+            if (z.instanceof(ZodNumber).safeParse(keySchemaType).success) keyVal = Number(data[key])
 
             // console.log(key, ' ' ,typeof data[key], ' ', isObj.data.shape[key])
 
