@@ -13,7 +13,7 @@ export default endpoint({
 
         const user = await User.repo().findOneOrFail({ userID: params.id })
 
-        res.send(user)
+        res.json(user)
 
     }
 })
