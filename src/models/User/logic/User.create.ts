@@ -16,8 +16,7 @@ export default endpoint({
             userID: z.number()
         }))
 
-
-        const user = User.repo().create(req.body);
+        const user = User.repo().create(data as any);
 
         await DI.em.flush();
 
