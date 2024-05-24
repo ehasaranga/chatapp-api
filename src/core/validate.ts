@@ -1,4 +1,4 @@
-import z, { ZodNumber, ZodString } from "zod";
+import z from "zod";
 
 
 export const validate = <TData>(data: any, schema: z.Schema<TData>) => {
@@ -6,8 +6,8 @@ export const validate = <TData>(data: any, schema: z.Schema<TData>) => {
     const isObj = z.instanceof(z.ZodObject).safeParse(schema)
 
     const primitiveMapZod = {
-        string: ZodString,
-        number: ZodNumber
+        string: z.ZodString,
+        number: z.ZodNumber
     } as any
 
     if (isObj.success) {
@@ -23,7 +23,7 @@ export const validate = <TData>(data: any, schema: z.Schema<TData>) => {
             if (z.instanceof(primitiveMapZod[keyDataType]).safeParse(keySchemaType).success) continue;
 
             //parse to number   
-            if (z.instanceof(ZodNumber).safeParse(keySchemaType).success) keyVal = Number(data[key])
+            if (z.instanceof(z.ZodNumber).safeParse(keySchemaType).success) keyVal = Number(data[key])
 
             // console.log(key, ' ' ,typeof data[key], ' ', isObj.data.shape[key])
 
