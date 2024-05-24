@@ -8,11 +8,12 @@ export default endpoint({
     path: '/',
     method: 'post',
     handler: async (req, res) => {
-
-        const body = validate(req.body, z.object({
+        
+        const data = validate(req.body, z.object({
             firstName: z.string(),
             lastName: z.string(), 
-            email: z.string().email()
+            email: z.string().email(),
+            userID: z.number()
         }))
 
 

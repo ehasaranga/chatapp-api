@@ -8,10 +8,10 @@ export default endpoint({
     handler: async (req, res) => {
 
         const params = validate(req.params, z.object({
-            id: z.number()
+            id: z.string()
         }));
 
-        const user = await User.repo().findOneOrFail({ userID: params.id })
+        const user = await User.repo().findOneOrFail(params.id)
 
         res.json(user)
 
