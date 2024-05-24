@@ -1,7 +1,6 @@
 import { NextFunction, Request, RequestHandler, Response } from "express";
-import z from 'zod'
 
-export function endpoint<TQuery, TParams, TBody>(options: TEndpointArgs<TQuery, TParams, TBody>) {
+export function endpoint(options: TEndpointArgs) {
 
     const path: string = options.path ? options.path : '';
 
@@ -10,28 +9,6 @@ export function endpoint<TQuery, TParams, TBody>(options: TEndpointArgs<TQuery, 
     const handler = async (req: Request, res: Response, next: NextFunction) => {
 
         try {
-
-            // if (options.params instanceof z.Schema) {
-
-            //     const safeParams = options.params?.safeParse(req.params);
-
-            // }
-
-            // if (options.query instanceof z.Schema) {
-
-            //     const safeQuery = options.query?.safeParse(req.query);
-
-            // }
-
-            // if (options.body instanceof z.Schema) {
-
-            //     const safeBody = options.body?.safeParse(req.body);
-
-            //     if (!safeBody?.success) throw safeBody.error
-
-            //     req.body = safeBody.data
-            // }
-
 
             await options.handler(req as any, res, next);
 
@@ -71,15 +48,11 @@ export function endpoint<TQuery, TParams, TBody>(options: TEndpointArgs<TQuery, 
 
 }
 
-export type TEndpointArgs<TQuery, TParams, TBody> = {
+export type TEndpointArgs = {
     path?: string;
     method?: 'get' | 'post' | 'put' | 'patch';
     access?: []
-    handler: THandler<TQuery, TParams, TBody>,
-    // params?: z.Schema<TParams>,
-    // query?: z.Schema<TQuery>,
-    // body?: z.Schema<TBody>
+    handler: THandler,
 }
 
-// type THandler<TQuery, TParams, TBody> = RequestHandler<TParams, TBody | any, any, TQuery>;
-type THandler<TQuery, TParams, TBody> = RequestHandler;
+type THandler = RequestHandler;
