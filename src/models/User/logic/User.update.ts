@@ -9,6 +9,8 @@ export default endpoint({
     method: 'put',
     handler: async (req, res) => {
 
+        //throw new Error('This has not setup yet..')
+
         const params = validate(req.params, z.object({
             id: z.string()            
         }));

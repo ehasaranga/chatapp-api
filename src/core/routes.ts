@@ -49,7 +49,7 @@ const deleteOne = (model: any) => endpoint({
 
         await model.repo().findOneOrFail(params.id)
 
-        const data = await model.repo().nativeDelete({ id: params.id });
+        const data = await model.repo().nativeDelete(params.id);
 
         if (!data) throw new Error('Error Deleting');
 

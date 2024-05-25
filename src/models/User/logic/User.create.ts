@@ -8,6 +8,8 @@ export default endpoint({
     path: '/',
     method: 'post',
     handler: async (req, res) => {
+
+        //throw new Error('This has not setup yet..')
         
         const data = validate(req.body, z.object({
             firstName: z.string(),
