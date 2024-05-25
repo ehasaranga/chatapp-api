@@ -5,6 +5,6 @@ import { DI } from "@app";
 export const Message = defineModel({
     name: 'Message',
     entity: MessageEntity,
-    endpoints: [],
+    endpoints: () => [],
     repo: () => DI.orm.em.getRepository(MessageEntity)
 })

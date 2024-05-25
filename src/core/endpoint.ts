@@ -50,7 +50,7 @@ export const endpoint = (options: TEndpointArgs):TEndpoint => {
 
 export type TEndpointArgs = {
     path?: string;
-    method?: 'get' | 'post' | 'put' | 'patch';
+    method?: 'get' | 'post' | 'put' | 'patch' | 'delete';
     access?: []
     handler: THandler,
 }
