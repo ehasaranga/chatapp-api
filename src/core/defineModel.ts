@@ -1,13 +1,15 @@
-import { endpoint } from "@core";
+import { TEndpoint, routes } from "@core";
 
-export const defineModel = <N extends string,E, K>(args: TDefineModelArgs<N, E, K>) => {
+export const defineModel = <N extends string, E, K>(args: TDefineModelArgs<N, E, K>) => {
 
-    const endpoints = args.endpoints ? [...args.endpoints] : []
+    let endpoints = args.endpoints(args)
+
+    if (typeof args.defaultEndpoints === 'undefined') endpoints = [...routes(args), ...endpoints]
 
     return {
         name: args.name,
         entity: args.entity,
-        endpoints,
+        endpoints: endpoints,
         repo: args.repo
     } as const
 
@@ -30,6 +32,7 @@ export const defineModel = <N extends string,E, K>(args: TDefineModelArgs<N, E, 
 export type TDefineModelArgs<N extends string, E, K> = {
     name: Capitalize<N>;
     entity: E;
-    endpoints: ReturnType<typeof endpoint>[];
+    defaultEndpoints?: boolean;
+    endpoints: (model:TDefineModelArgs<N, E, K>) => TEndpoint[];
     repo: () => K;
 }

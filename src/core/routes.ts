@@ -3,6 +3,8 @@ import z from "zod";
 
 export const routes = (model: any) => {
 
+    // console.log('test ', model)
+
     return [getOne(model), getAll(model)] as const
 
 }

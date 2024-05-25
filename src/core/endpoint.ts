@@ -1,6 +1,6 @@
 import { NextFunction, Request, RequestHandler, Response } from "express";
 
-export function endpoint(options: TEndpointArgs) {
+export const endpoint = (options: TEndpointArgs):TEndpoint => {
 
     const path: string = options.path ? options.path : '';
 
@@ -54,5 +54,7 @@ export type TEndpointArgs = {
     access?: []
     handler: THandler,
 }
+
+export type TEndpoint = Required<Pick<TEndpointArgs, 'path' | 'method' | 'handler'>>
 
 type THandler = RequestHandler;

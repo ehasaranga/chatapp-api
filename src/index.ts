@@ -70,7 +70,9 @@ const App = async function () {
 
     for (const module of Object.values(modules)) {
 
-        for (const endpoint of module['endpoints']) {
+        if (!Array.isArray(module.endpoints)) continue;
+
+        for (const endpoint of module.endpoints) {
 
             const path = joinUrl(module.name, endpoint.path);
 
