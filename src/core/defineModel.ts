@@ -15,20 +15,6 @@ export const defineModel = <N extends string, E, K>(args: TDefineModelArgs<N, E,
 
 }
 
-// export const modelObj = <T extends TDefineModel<string>, K extends T['name'] = T['name']> (models: T[]) => {
-
-//     const obj = models.reduce((acc, item: T) => {
-
-//         acc[item.name as K] = item;
-
-//         return acc
-
-//     }, {} as Record<K, T>)
-
-//     return obj 
-
-// }
-
 export type TDefineModelArgs<N extends string, E, K> = {
     name: Capitalize<N>;
     entity: E;
