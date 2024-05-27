@@ -1,5 +1,5 @@
 import { app, init, DI } from '@app';
-import request from 'supertest'
+import supertest from 'supertest'
 
 
 describe("GET /", () => {
@@ -8,11 +8,7 @@ describe("GET /", () => {
 
         await init;
 
-        // console.log('DI ', DI)
-        // console.log('app ', app)
-
         await DI.orm.config.getDriver().reconnect();
-        // await DI.orm.getSchemaGenerator().clearDatabase();
 
     })
 
@@ -25,7 +21,9 @@ describe("GET /", () => {
 
     it("test api working", () => {
 
-        request(app).get('/').expect(200)
+        return supertest(app)
+            .get('/')
+            .expect(200)
 
     })
 
