@@ -36,9 +36,10 @@
 
   },
   "include": ["src/**/*.ts"],
-  "exclude": ["dist", "node_modules"], 
+  "exclude": ["dist", "node_modules", "*.test.ts", "*.spec.ts"], 
   // "ts-node": {
-  //   "esm": true, 
-  //   "transpileOnly": true
+  //   "esm": true,
+  //   "experimentalSpecifierResolution": "node",
+  //   // "transpileOnly": true
   // }
 }

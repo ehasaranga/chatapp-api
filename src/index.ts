@@ -6,49 +6,54 @@ import morgan from 'morgan';
 import dotenv from 'dotenv';
 import { joinUrl } from '@core/util';
 
-import { MikroORM, RequestContext } from '@mikro-orm/core';
-import { EntityManager, MongoDriver, defineConfig } from '@mikro-orm/mongodb';
+import { RequestContext } from '@mikro-orm/core';
+import { EntityManager, MongoDriver, MikroORM, defineConfig } from '@mikro-orm/mongodb';
 
 import { User } from '@app/models/User/User';
 import { Message } from '@app/models/Message/Message';
+import { TsMorphMetadataProvider } from '@mikro-orm/reflection';
+
 
 dotenv.config();
 
-const app: Application = express();
+export const app: Application = express();
 const PORT = process.env.PORT || 3000;
 
-const modules = {
-    User,
-    Message
+const models = {
+    User: User,
+    Message: Message
 }
 
 export type TDI = {
     server: http.Server;
     orm: MikroORM,
     em: EntityManager,
-    modules: typeof modules
+    modules: typeof models
 }
 
-export const DI = {} as TDI
+export const DI = {
+    modules: models
+} as TDI
 
-const App = async function () {
+export const init = (async () => {
 
     // Load Entities 
-    const entities = Object.values(modules).map(item => item.entity);
+    const entities = Object.values(models).map(item => item.entity);
 
     // DI Setup
     DI.orm = await MikroORM.init<MongoDriver>(defineConfig({
-        entities: entities,
+        entities: Object.values(entities),
+        metadataProvider: TsMorphMetadataProvider,
+        metadataCache: { enabled: false },
         dbName: 'chatapp',
         debug: true,
     }));
 
     DI.em = DI.orm.em as EntityManager;
 
-    DI.modules = modules
-
     // DI Setup - END
 
+    app.disable('x-powered-by')
     app.use(cors())
     app.use(helmet())
     app.use(morgan('dev'))
@@ -61,14 +66,14 @@ const App = async function () {
 
     app.get('/', (req: Request, res: Response) => {
 
-        res.send('Hi, This is the API')
+        res.status(200).json('Hi, This is the API')
 
     })
 
 
     // Setup Routes
 
-    for (const module of Object.values(modules)) {
+    for (const module of Object.values(models)) {
 
         if (!Array.isArray(module.endpoints)) continue;
 
@@ -88,8 +93,18 @@ const App = async function () {
 
     })
 
+    DI.server.on('close', async () => {
+
+        await DI.orm.close()
+
+        console.log(`Server Shutdown`);
+
+    })
+
     return DI;
 
-}()
+})()
+
+
 
 
