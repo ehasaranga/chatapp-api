@@ -8,8 +8,8 @@
     "start": "node ./dist/index.js",
     "build": "rimraf dist && tsc -p . && tsc-alias",
     "local": "nodemon -r tsconfig-paths/register src/index.ts",
-    "test": "jest --silent",
-    "test:vi": "vitest"
+    "test": "vitest",
+    "test:j": "jest --silent"
   },
   "keywords": [],
   "author": "Eranda Hasaranga",
