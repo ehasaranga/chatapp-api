@@ -7,6 +7,7 @@ import z from "zod";
 export const UserLogin = endpoint({
     path: '/login',
     method: 'post',
+    baseRoute: true,
     handler: async (req, res) => {
         
         const data = validate(req.body, z.object({

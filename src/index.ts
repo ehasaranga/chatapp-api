@@ -81,7 +81,9 @@ export const init = (async () => {
 
         for (const endpoint of module.endpoints) {
 
-            const path = joinUrl(module.name, endpoint.path);
+            const moduleName = endpoint.baseRoute ? '' : module.name; 
+
+            const path = joinUrl(moduleName, endpoint.path);
 
             app[endpoint.method](path, endpoint.handler)
 

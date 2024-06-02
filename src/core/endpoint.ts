@@ -6,6 +6,8 @@ export const endpoint = (options: TEndpointArgs):TEndpoint => {
 
     const method: typeof options.method = options.method ? options.method : 'get';
 
+    const baseRoute: boolean = options.baseRoute ? options.baseRoute : false;
+
     const handler = async (req: Request, res: Response, next: NextFunction) => {
 
         try {
@@ -43,7 +45,8 @@ export const endpoint = (options: TEndpointArgs):TEndpoint => {
     return {
         path: path,
         method: method,
-        handler: handler
+        handler: handler,
+        baseRoute: baseRoute
     } as const
 
 }
@@ -54,8 +57,9 @@ export type TEndpointArgs = {
     access?: [];
     handler: THandler;
     public?: boolean;
+    baseRoute?: boolean;
 }
 
-export type TEndpoint = Required<Pick<TEndpointArgs, 'path' | 'method' | 'handler'>>
+export type TEndpoint = Required<Pick<TEndpointArgs, 'path' | 'method' | 'handler' | 'baseRoute'>>
 
 type THandler = RequestHandler;
