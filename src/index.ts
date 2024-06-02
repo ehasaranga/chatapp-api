@@ -85,7 +85,7 @@ export const init = (async () => {
 
             const path = joinUrl(moduleName, endpoint.path);
 
-            app[endpoint.method](path, endpoint.handler)
+            app[endpoint.method](path, [endpoint.handler])
 
         }
 
