@@ -4,7 +4,7 @@ import { User } from "@app/models/User/User";
 import { endpoint, validate } from "@core";
 import z from "zod";
 
-export default endpoint({
+export const UserCreate = endpoint({
     path: '/',
     method: 'post',
     handler: async (req, res) => {
@@ -26,5 +26,3 @@ export default endpoint({
 
     }
 })
-
-// (property) Response<any, Record<string, any>, number>.json: (body?: any) => Response<any, Record<string, any>, number>

@@ -1,12 +1,11 @@
 import { defineModel } from "@core";
 import { UserEntity } from "./User.entity";
-import UserCreate from "./logic/User.create";
-import UserUpdate from "./logic/User.update";
 import { DI } from "@app";
+import { UserLogin, UserUpdate } from "@app/models/User/logic";
 
 export const User = defineModel({
     name: 'User',
     entity: UserEntity,
     repo: () => DI.orm.em.getRepository(UserEntity),
-    endpoints: () => [UserCreate, UserUpdate]
+    endpoints: () => [ UserUpdate, UserLogin ]
 })

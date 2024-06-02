@@ -4,7 +4,7 @@ import { endpoint, validate } from "@core";
 import { wrap } from "@mikro-orm/core";
 import z from "zod";
 
-export default endpoint({
+export const UserUpdate = endpoint({
     path: ':id',
     method: 'put',
     handler: async (req, res) => {

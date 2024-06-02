@@ -21,7 +21,7 @@ const PORT = process.env.PORT || 3000;
 
 const models = {
     User: User,
-    Message: Message
+    // Message: Message
 }
 
 export type TDI = {

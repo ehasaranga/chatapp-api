@@ -51,8 +51,9 @@ export const endpoint = (options: TEndpointArgs):TEndpoint => {
 export type TEndpointArgs = {
     path?: string;
     method?: 'get' | 'post' | 'put' | 'patch' | 'delete';
-    access?: []
-    handler: THandler,
+    access?: [];
+    handler: THandler;
+    public?: boolean;
 }
 
 export type TEndpoint = Required<Pick<TEndpointArgs, 'path' | 'method' | 'handler'>>
