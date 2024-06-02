@@ -20,7 +20,8 @@ const convertStringToSchemaType = <TData>(data: any, schema: z.Schema<TData>) =>
 
     const primitiveMapZod = {
         string: z.ZodString,
-        number: z.ZodNumber
+        number: z.ZodNumber,
+        boolean: z.ZodBoolean
     } as any
 
     if (isObj.success) {
