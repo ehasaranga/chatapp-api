@@ -4,6 +4,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
+import cookieParser from 'cookie-parser';
 import { joinUrl } from '@core/util';
 
 import { RequestContext } from '@mikro-orm/core';
@@ -56,6 +57,7 @@ export const init = (async () => {
     app.disable('x-powered-by')
     app.use(cors())
     app.use(helmet())
+    app.use(cookieParser())
     app.use(morgan('dev'))
     app.use(express.urlencoded({ extended: false, limit: '100mb' }))
     app.use(express.json())

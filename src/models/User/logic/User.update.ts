@@ -18,8 +18,7 @@ export const UserUpdate = endpoint({
         const data = validate(req.body, z.object({
             firstName: z.string(),
             lastName: z.string(),
-            email: z.string().email(),
-            userID: z.number()
+            email: z.string().email()
         }))
 
         const user = await User.repo().findOneOrFail(params.id)

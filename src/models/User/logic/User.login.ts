@@ -10,7 +10,7 @@ export const UserLogin = endpoint({
     handler: async (req, res) => {
         
         const data = validate(req.body, z.object({
-            username: z.string(),
+            email: z.string(),
             password: z.string()
         }))
 
