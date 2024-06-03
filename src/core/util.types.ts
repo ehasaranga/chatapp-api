@@ -1,0 +1,1 @@
+export type UnionString<T> = T | Omit<T, string>

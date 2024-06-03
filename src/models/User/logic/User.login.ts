@@ -36,7 +36,7 @@ export const UserLogin = endpoint({
         }
 
         // access token 
-        const token = jwt.sign(payload, TOKEN_SECRET, { expiresIn:  60 * 15 })
+        const token = jwt.sign(payload, TOKEN_SECRET, { expiresIn:  '15m' })
         
         const tokenSplit = token.split(".")
 
@@ -45,24 +45,22 @@ export const UserLogin = endpoint({
 
 
         // refresh token
-        if (data.remember) {
+        // if (data.remember) {
 
-            const refreshToken = jwt.sign(payload, REFRESH_SECRET, { expiresIn:  '15m' })
+        //     const refreshToken = jwt.sign(payload, REFRESH_SECRET, { expiresIn:  '30 days' })
 
-            res.cookie('refresh', refreshToken, {
-                httpOnly: true,
-                maxAge: ms('30 days')
-            })
+        //     res.cookie('refresh', refreshToken, {
+        //         httpOnly: true,
+        //         maxAge: ms('30 days')
+        //     })
 
-        }
+        // }
 
         res.status(200)
-            .cookie('session', tokenSig, {
+            .cookie('session', token, {
                 httpOnly: true,
-                maxAge: ms('15m')
-            })
-            .cookie('user', tokenPayload, {
-                maxAge: ms('15m')
+                maxAge: ms('15m'),
+                signed: true
             })
             .json(payload)
 

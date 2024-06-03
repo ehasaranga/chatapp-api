@@ -13,6 +13,7 @@ import { EntityManager, MongoDriver, MikroORM, defineConfig } from '@mikro-orm/m
 import { User } from '@app/models/User/User';
 import { Message } from '@app/models/Message/Message';
 import { TsMorphMetadataProvider } from '@mikro-orm/reflection';
+import { auth } from '@core/auth';
 
 
 dotenv.config();
@@ -57,9 +58,9 @@ export const init = (async () => {
     app.disable('x-powered-by')
     app.use(cors())
     app.use(helmet())
-    app.use(cookieParser())
+    app.use(cookieParser(process.env.COOKIE_SECRET))
     app.use(morgan('dev'))
-    app.use(express.urlencoded({ extended: false, limit: '100mb' }))
+    app.use(express.urlencoded({ extended: false, limit: '10mb' }))
     app.use(express.json())
 
     app.use((req, res, next) => {
@@ -85,7 +86,7 @@ export const init = (async () => {
 
             const path = joinUrl(moduleName, endpoint.path);
 
-            app[endpoint.method](path, [endpoint.handler])
+            app[endpoint.method](path, [auth(module.name, endpoint), endpoint.handler])
 
         }
 

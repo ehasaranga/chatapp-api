@@ -9,6 +9,7 @@ import bcrypt from 'bcryptjs'
 export const UserCreate = endpoint({
     path: '/',
     method: 'post',
+    action: 'create',
     handler: async (req, res) => {
 
         //throw new Error('This has not setup yet..')

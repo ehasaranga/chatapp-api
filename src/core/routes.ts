@@ -13,6 +13,7 @@ export const routes = (model: any) => {
 const getOne = (model: any) => endpoint({
     path: ':id',
     method: 'get',
+    action: 'read',
     handler: async (req, res) => {
 
         const params = validate(req.params, z.object({
@@ -29,6 +30,7 @@ const getOne = (model: any) => endpoint({
 const getAll = (model: any) => endpoint({
     path: '/',
     method: 'get',
+    action: 'read',
     handler: async (req, res) => {
 
         const data = await model.repo().findAll()
@@ -41,6 +43,7 @@ const getAll = (model: any) => endpoint({
 const deleteOne = (model: any) => endpoint({
     path: ':id',
     method: 'delete',
+    action: 'delete',
     handler: async (req, res) => {
 
         const params = validate(req.params, z.object({

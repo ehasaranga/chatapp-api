@@ -7,6 +7,7 @@ import z from "zod";
 export const UserUpdate = endpoint({
     path: ':id',
     method: 'put',
+    action: 'update',
     handler: async (req, res) => {
 
         //throw new Error('This has not setup yet..')

@@ -1,3 +1,4 @@
+import { UnionString } from "@core/util.types";
 import { NextFunction, Request, RequestHandler, Response } from "express";
 
 export const endpoint = (options: TEndpointArgs):TEndpoint => {
@@ -7,6 +8,8 @@ export const endpoint = (options: TEndpointArgs):TEndpoint => {
     const method: typeof options.method = options.method ? options.method : 'get';
 
     const baseRoute: boolean = options.baseRoute ? options.baseRoute : false;
+
+    const action = typeof options.action === 'undefined' ? false : options.action
 
     const handler = async (req: Request, res: Response, next: NextFunction) => {
 
@@ -48,7 +51,8 @@ export const endpoint = (options: TEndpointArgs):TEndpoint => {
         path: path,
         method: method,
         handler: handler,
-        baseRoute: baseRoute
+        baseRoute: baseRoute,
+        action: action
     } as const
 
 }
@@ -56,12 +60,12 @@ export const endpoint = (options: TEndpointArgs):TEndpoint => {
 export type TEndpointArgs = {
     path?: string;
     method?: 'get' | 'post' | 'put' | 'patch' | 'delete';
-    access?: [];
+    action?: UnionString<'read' | 'create' | 'update' | 'delete'> | boolean;
     handler: THandler;
     public?: boolean;
     baseRoute?: boolean;
 }
 
-export type TEndpoint = Required<Pick<TEndpointArgs, 'path' | 'method' | 'handler' | 'baseRoute'>>
+export type TEndpoint = Required<Pick<TEndpointArgs, 'path' | 'method' | 'handler' | 'baseRoute' | 'action'>>
 
 type THandler = RequestHandler;
