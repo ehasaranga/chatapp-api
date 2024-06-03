@@ -28,6 +28,8 @@ export const endpoint = (options: TEndpointArgs):TEndpoint => {
 
             console.error("Error Message : " + errMessage)
 
+            if (res.headersSent) return;
+
             res.status(400).json({
                 errors: [{
 

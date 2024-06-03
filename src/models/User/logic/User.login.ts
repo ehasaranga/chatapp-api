@@ -24,19 +24,18 @@ export const UserLogin = endpoint({
             remember: z.boolean().default(false)
         }))
 
-        console.log(data)
-
         const user = await User.repo().findOneOrFail({ email: data.email });
 
-        if (!(await bcrypt.compare(data.password, user.password))) res.status(401).json('Authentication Error') 
+        if (!(bcrypt.compareSync(data.password, user.password))) return res.status(401).json('Authentication Error') 
 
         const payload = {
+            firstName: user.firstName,
+            lastName: user.lastName,
             email: user.email, 
             role: user.role,
-            firstName: user.firstName,
-            lastName: user.lastName
         }
 
+        // access token 
         const token = jwt.sign(payload, TOKEN_SECRET, { expiresIn:  60 * 15 })
         
         const tokenSplit = token.split(".")
@@ -44,9 +43,11 @@ export const UserLogin = endpoint({
         const tokenPayload = tokenSplit[0] + "." + tokenSplit[1];
         const tokenSig = tokenSplit[2];
 
+
+        // refresh token
         if (data.remember) {
 
-            const refreshToken = jwt.sign(payload, REFRESH_SECRET, { expiresIn:  60 * 15 })
+            const refreshToken = jwt.sign(payload, REFRESH_SECRET, { expiresIn:  '15m' })
 
             res.cookie('refresh', refreshToken, {
                 httpOnly: true,
@@ -63,7 +64,7 @@ export const UserLogin = endpoint({
             .cookie('user', tokenPayload, {
                 maxAge: ms('15m')
             })
-            .json(user)
+            .json(payload)
 
     }
 })
