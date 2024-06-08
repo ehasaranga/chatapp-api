@@ -59,7 +59,7 @@ export const UserLogin = endpoint({
         res.status(200)
             .cookie('session', token, {
                 httpOnly: true,
-                maxAge: ms('15m'),
+                // maxAge: ms('15m'),
                 signed: true
             })
             .json(payload)
