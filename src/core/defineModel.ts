@@ -5,7 +5,7 @@ export const defineModel = <N extends string, E, K>(args: TDefineModelArgs<N, E,
 
     let endpoints = args.endpoints(args)
 
-    if (typeof args.defaultEndpoints === 'undefined') endpoints = [...routes(args), ...endpoints]
+    if (typeof args.defaultEndpoints === 'undefined') endpoints = [...endpoints, ...routes(args)]
 
     return {
         name: args.name,
