@@ -19,31 +19,33 @@ export const endpoint = (options: TEndpointArgs):TEndpoint => {
 
         } catch (err) {
 
-            let errMessage = '';
-            let errName = ''
+            return next(err)
 
-            if (err instanceof Error) {
+            // let errMessage = '';
+            // let errName = ''
 
-                errMessage = err.message
-                errName = err.name
+            // if (err instanceof Error) {
 
-            }
+            //     errMessage = err.message
+            //     errName = err.name
 
-            console.error("Error Message : " + errMessage)
+            // }
 
-            if (res.headersSent) return;
+            // console.error("Error Message : " + errMessage)
 
-            if (res.statusCode === 200) res.status(400);
+            // if (res.headersSent) return;
 
-            res.json({
-                errors: [{
+            // if (res.statusCode === 200) res.status(400);
 
-                    name: errName,
-                    message: errMessage,
-                    details: err
+            // res.json({
+            //     errors: [{
 
-                }]
-            })
+            //         name: errName,
+            //         message: errMessage,
+            //         details: err
+
+            //     }]
+            // })
 
         }
 

@@ -95,13 +95,24 @@ export const init = (async () => {
 
     app.use((err: any, req: Request, res: Response, next: NextFunction) => {
 
-        if (err instanceof TokenExpiredError) return res.status(401).json(err.message);
+        console.error(err.stack); 
 
-        if (err instanceof JsonWebTokenError || err instanceof NotBeforeError) return res.status(403).json(err.message);
+        let status = err.status ? err.status : (res.statusCode === 200) ? 500 : res.statusCode; 
 
-        if (res.statusCode === 200) res.status(500);
+        const message = err.message || 'Internal Server Error'; 
 
-        return res.json(err.message)
+        if (err instanceof TokenExpiredError) status = 401;
+
+        if (err instanceof JsonWebTokenError || err instanceof NotBeforeError) status = 403;
+
+        return res.status(status).json({
+            errors: [{
+                name: err.name,
+                message: message,
+                details: err,
+                ...(process.env.NODE_ENV === 'development' && { stack: err.stack })
+            }]
+        });
 
     })
 

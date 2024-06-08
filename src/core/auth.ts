@@ -18,7 +18,6 @@ export const auth = (model: ReturnType<TDefineModel>,  endpoint: TEndpoint) => (
     if (!req.signedCookies.session || !secret) return res.sendStatus(401);
 
     
-    
     const user:any = jwt.verify(req.signedCookies.session, secret)
     
     //if user has required roles authorize
@@ -32,14 +31,9 @@ export const auth = (model: ReturnType<TDefineModel>,  endpoint: TEndpoint) => (
 
     }
 
-    //setup user session to access via Request -> req      
-    // console.log(req)
-
-
-    // console.log(model.name,'.', endpoint.action)
-    // console.log(req.signedCookies.session)
-
-
-    return res.status(401).json('Unauthorized');
+    return next({
+        status: 400,
+        message: 'Unathorized'
+    })
 
 }
