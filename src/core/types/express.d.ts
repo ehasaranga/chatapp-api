@@ -7,9 +7,9 @@ declare global {
         interface Request {
 
             user?: {
-                id: string | number | unknown;
-                email: string | unknown;
-                role: string | unknown;
+                id: string | number;
+                email: string;
+                role: string;
             };
     
         }
