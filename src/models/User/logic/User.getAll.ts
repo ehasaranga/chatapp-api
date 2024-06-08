@@ -21,8 +21,6 @@ export const UserGetAll = endpoint({
 
         const rolesAllowed = userRoleOrder.slice(userRoleOrder.indexOf(req.user.role))
 
-        console.log(rolesAllowed)
-
         const users =  await User.repo().find({ role: rolesAllowed })
 
         res.status(200).json(users)
