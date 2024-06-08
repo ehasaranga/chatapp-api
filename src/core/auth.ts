@@ -11,24 +11,32 @@ export const auth = (model: ReturnType<TDefineModel>,  endpoint: TEndpoint) => (
     // see if the route is public or not
     if (endpoint.action === false) return next();
 
-    // if not check for jwt to see the roles of the user
-
     //cookie has been edited
     if (req.signedCookies.session === false) return res.sendStatus(403);
 
     //no cookie & no secret
     if (!req.signedCookies.session || !secret) return res.sendStatus(401);
 
+    
     const user:any = jwt.verify(req.signedCookies.session, secret)
 
-    //if user has super role pass 
+    //if user has super role then authorize
     if (user.role == 'super') return next();
 
     
-    //if user has required roles pass
-    const access = model.access ? model.access : {}
+    //if user has required roles authorize
+    const access = model.access ? model.access : {};
 
-    if (access[endpoint.action as string]?.includes(user.role)) return next()
+    if (access[endpoint.action as string]?.includes(user.role)) {
+
+        req.user = user
+        
+        return next();
+
+    }
+
+    //setup user session to access via Request -> req      
+    // console.log(req)
 
 
     // console.log(model.name,'.', endpoint.action)

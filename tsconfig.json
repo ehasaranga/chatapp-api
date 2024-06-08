@@ -13,6 +13,7 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "forceConsistentCasingInFileNames": true,
+    "declaration": true,
 
     /* Strictness */
     "strict": true,
@@ -37,6 +38,7 @@
   },
   "include": ["src/**/*.ts"],
   "exclude": ["dist", "node_modules", "*.test.ts", "*.spec.ts"], 
+  "files": ["src/core/types/express.d.ts"]
   // "ts-node": {
   //   "esm": true,
   //   "experimentalSpecifierResolution": "node",
