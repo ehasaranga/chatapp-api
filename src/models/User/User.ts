@@ -10,7 +10,7 @@ export const User = defineModel({
     endpoints: () => [ UserCreate, UserUpdate, UserLogin ],
     access: {
         read: ['admin'],
-        create: ['user'],
+        create: ['admin'],
         update: ['admin'],
         delete: ['admin']
     }
