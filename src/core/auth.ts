@@ -23,7 +23,7 @@ export const auth = (model: ReturnType<TDefineModel>,  endpoint: TEndpoint) => (
     //if user has required roles authorize
     const access = model.access ? model.access : {};
 
-    if (access[endpoint.action as string]?.includes(user.role) || !access[endpoint.action as string]?.length || user.role == 'super') {
+    if (access[endpoint.action as string]?.includes(user.role) || !access[endpoint.action as string]?.length || user.role === 'super') {
 
         req.user = user
         
@@ -32,7 +32,7 @@ export const auth = (model: ReturnType<TDefineModel>,  endpoint: TEndpoint) => (
     }
 
     return next({
-        status: 400,
+        status: 401,
         message: 'Unathorized'
     })
 
