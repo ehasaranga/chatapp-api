@@ -9,14 +9,6 @@ export const UserGetAll = endpoint({
     action: 'read',
     handler: async (req, res) => {
 
-        if (!['super', 'admin'].includes(req.user.role)) {
-
-            res.status(401);
-
-            throw Error('Authorization Error')
-
-        }
-
         const userRoleOrder = ['super', 'admin', 'user'];
 
         const rolesAllowed = userRoleOrder.slice(userRoleOrder.indexOf(req.user.role))
