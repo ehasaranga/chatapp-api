@@ -9,8 +9,10 @@ export const UserMe = endpoint({
     action: 'me',
     handler: async (req, res) => {
 
+        const user = await User.repo().findOneOrFail({ email: req.user?.email })
+
         console.log('in me')
-        console.log(req.user)
+        console.log(user)
 
         res.status(200).json(req.user)
 

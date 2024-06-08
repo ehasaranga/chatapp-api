@@ -18,16 +18,13 @@ export const auth = (model: ReturnType<TDefineModel>,  endpoint: TEndpoint) => (
     if (!req.signedCookies.session || !secret) return res.sendStatus(401);
 
     
+    
     const user:any = jwt.verify(req.signedCookies.session, secret)
-
-    //if user has super role then authorize
-    if (user.role == 'super') return next();
-
     
     //if user has required roles authorize
     const access = model.access ? model.access : {};
 
-    if (access[endpoint.action as string]?.includes(user.role)) {
+    if (access[endpoint.action as string]?.includes(user.role) || user.role == 'super') {
 
         req.user = user
         
