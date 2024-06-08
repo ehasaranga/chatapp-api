@@ -14,7 +14,6 @@ import { User } from '@app/models/User/User';
 import { Message } from '@app/models/Message/Message';
 import { TsMorphMetadataProvider } from '@mikro-orm/reflection';
 import { auth } from '@core/auth';
-import { defineModel } from '@core';
 
 
 dotenv.config();
