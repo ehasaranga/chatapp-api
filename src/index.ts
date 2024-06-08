@@ -1,5 +1,5 @@
 import http from 'http'
-import express, { Request, Response, Application } from 'express';
+import express, { Request, Response, Application, NextFunction } from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
@@ -14,6 +14,7 @@ import { User } from '@app/models/User/User';
 import { Message } from '@app/models/Message/Message';
 import { TsMorphMetadataProvider } from '@mikro-orm/reflection';
 import { auth } from '@core/auth';
+import { JsonWebTokenError, NotBeforeError, TokenExpiredError } from 'jsonwebtoken';
 
 
 dotenv.config();
@@ -82,7 +83,7 @@ export const init = (async () => {
 
         for (const endpoint of module.endpoints) {
 
-            const moduleName = endpoint.baseRoute ? '' : module.name; 
+            const moduleName = endpoint.baseRoute ? '' : module.name;
 
             const path = joinUrl(moduleName, endpoint.path);
 
@@ -91,6 +92,18 @@ export const init = (async () => {
         }
 
     }
+
+    app.use((err: any, req: Request, res: Response, next: NextFunction) => {
+
+        if (err instanceof TokenExpiredError) return res.status(401).json(err.message);
+
+        if (err instanceof JsonWebTokenError || err instanceof NotBeforeError) return res.status(403).json(err.message);
+
+        if (res.statusCode === 200) res.status(500);
+
+        return res.json(err.message)
+
+    })
 
     DI.server = app.listen(PORT, async () => {
 
