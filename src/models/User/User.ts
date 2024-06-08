@@ -12,7 +12,6 @@ export const User = defineModel({
         read: ['admin'],
         create: ['user'],
         update: ['admin'],
-        delete: ['admin'],
-        login: ['admin']
+        delete: ['admin']
     }
 })
