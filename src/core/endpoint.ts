@@ -33,7 +33,9 @@ export const endpoint = (options: TEndpointArgs):TEndpoint => {
 
             if (res.headersSent) return;
 
-            res.status(400).json({
+            if (res.statusCode === 200) res.status(400);
+
+            res.json({
                 errors: [{
 
                     name: errName,
