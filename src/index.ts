@@ -14,6 +14,7 @@ import { User } from '@app/models/User/User';
 import { Message } from '@app/models/Message/Message';
 import { TsMorphMetadataProvider } from '@mikro-orm/reflection';
 import { auth } from '@core/auth';
+import { defineModel } from '@core';
 
 
 dotenv.config();
@@ -22,7 +23,7 @@ export const app: Application = express();
 const PORT = process.env.PORT || 3000;
 
 const models = {
-    User: User,
+    User,
     // Message: Message
 }
 
@@ -30,11 +31,11 @@ export type TDI = {
     server: http.Server;
     orm: MikroORM,
     em: EntityManager,
-    modules: typeof models
+    models: typeof models
 }
 
 export const DI = {
-    modules: models
+    models: models
 } as TDI
 
 export const init = (async () => {
@@ -86,7 +87,7 @@ export const init = (async () => {
 
             const path = joinUrl(moduleName, endpoint.path);
 
-            app[endpoint.method](path, [auth(module.name, endpoint), endpoint.handler])
+            app[endpoint.method](path, [auth(module, endpoint), endpoint.handler])
 
         }
 

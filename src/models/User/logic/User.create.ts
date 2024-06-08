@@ -20,7 +20,7 @@ export const UserCreate = endpoint({
             email: z.string().email(),
             password: z.string().min(4),
             confirmPass: z.string().min(4),
-            role: z.enum(['superadmin', 'admin', 'user'])
+            role: z.enum(['super', 'admin', 'user']) // must be updated later with common roles global variable
         }).superRefine((val, ctx) => {
 
             if (val.confirmPass !== val.password) {
@@ -33,7 +33,7 @@ export const UserCreate = endpoint({
 
             }
 
-        }))
+        }).transform(({confirmPass, ...rest}) => rest))
 
         const password = await bcrypt.hash(data.password, await bcrypt.genSalt(12))
 

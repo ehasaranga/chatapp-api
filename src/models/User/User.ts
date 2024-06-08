@@ -7,5 +7,12 @@ export const User = defineModel({
     name: 'User',
     entity: UserEntity,
     repo: () => DI.orm.em.getRepository(UserEntity),
-    endpoints: () => [ UserCreate, UserUpdate, UserLogin ]
+    endpoints: () => [ UserCreate, UserUpdate, UserLogin ],
+    access: {
+        read: ['admin'],
+        create: ['user'],
+        update: ['admin'],
+        delete: ['admin'],
+        login: ['admin']
+    }
 })

@@ -57,12 +57,13 @@ export const endpoint = (options: TEndpointArgs):TEndpoint => {
 
 }
 
+export type TActions = 'read' | 'create' | 'update' | 'delete';
+
 export type TEndpointArgs = {
     path?: string;
     method?: 'get' | 'post' | 'put' | 'patch' | 'delete';
-    action?: UnionString<'read' | 'create' | 'update' | 'delete'> | boolean;
+    action?: UnionString<TActions> | boolean;
     handler: THandler;
-    public?: boolean;
     baseRoute?: boolean;
 }
 
