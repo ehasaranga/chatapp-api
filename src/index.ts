@@ -14,7 +14,7 @@ import { User } from '@app/models/User/User';
 import { Message } from '@app/models/Message/Message';
 import { TsMorphMetadataProvider } from '@mikro-orm/reflection';
 import { auth } from '@core/auth';
-import { JsonWebTokenError, NotBeforeError, TokenExpiredError } from 'jsonwebtoken';
+import { errorHandler } from '@core';
 
 
 dotenv.config();
@@ -93,28 +93,7 @@ export const init = (async () => {
 
     }
 
-    app.use((err: any, req: Request, res: Response, next: NextFunction) => {
-
-        console.error(err.stack); 
-
-        let status = err.status ? err.status : (res.statusCode === 200) ? 500 : res.statusCode; 
-
-        const message = err.message || 'Internal Server Error'; 
-
-        if (err instanceof TokenExpiredError) status = 401;
-
-        if (err instanceof JsonWebTokenError || err instanceof NotBeforeError) status = 403;
-
-        return res.status(status).json({
-            errors: [{
-                name: err.name,
-                message: message,
-                details: err,
-                ...(process.env.NODE_ENV === 'development' && { stack: err.stack })
-            }]
-        });
-
-    })
+    app.use(errorHandler)
 
     DI.server = app.listen(PORT, async () => {
 
