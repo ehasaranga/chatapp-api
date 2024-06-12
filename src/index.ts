@@ -45,6 +45,7 @@ export const init = (async () => {
 
     // DI Setup
     DI.orm = await MikroORM.init<MongoDriver>(defineConfig({
+        clientUrl: process.env.MONGO ?? 'mongodb://127.0.0.1:27017',
         entities: Object.values(entities),
         metadataProvider: TsMorphMetadataProvider,
         metadataCache: { enabled: false },
