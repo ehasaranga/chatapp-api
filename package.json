@@ -8,6 +8,7 @@
     "start": "node ./dist/index.js",
     "build": "rimraf dist && tsc -p . && tsc-alias",
     "local": "nodemon -r tsconfig-paths/register src/index.ts",
+    "trace": "tsc --generateTrace trace --incremental false",
     "test": "vitest",
     "test:j": "jest --silent"
   },
