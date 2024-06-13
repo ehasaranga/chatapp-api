@@ -2,5 +2,10 @@
     "execMap": {
         "ts": "ts-node"
     },
-    "ignore": ["temp/**", "nod_modules/**", "dist/**"] 
+    "ignore": [
+        "temp/**", 
+        "nod_modules/**", 
+        "trace/**", 
+        "dist/**"
+    ] 
 }

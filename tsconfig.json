@@ -43,7 +43,13 @@
     // "src/core/types/express.d.ts",
     "src/**/*.ts",
   ],
-  "exclude": ["dist", "node_modules", "*.test.ts", "*.spec.ts"], 
+  "exclude": [
+    "dist", 
+    "trace", 
+    "node_modules", 
+    "*.test.ts", 
+    "*.spec.ts"
+  ], 
   "files": ["src/core/types/express.d.ts"]
   // "ts-node": {
   //   "esm": true,
