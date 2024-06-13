@@ -25,6 +25,9 @@
     "baseUrl": ".",
     "outDir": "dist",
     "sourceMap": true,
+
+    /* TS Perf - Improvement*/
+    "incremental": true,
     
     "paths": {
       "@core" : ["src/core/index.ts"],
@@ -36,7 +39,10 @@
     "lib": ["ES2022"],  
 
   },
-  "include": ["src/**/*.ts"],
+  "include": [
+    // "src/core/types/express.d.ts",
+    "src/**/*.ts",
+  ],
   "exclude": ["dist", "node_modules", "*.test.ts", "*.spec.ts"], 
   "files": ["src/core/types/express.d.ts"]
   // "ts-node": {
