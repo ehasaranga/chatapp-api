@@ -50,7 +50,9 @@
     "*.test.ts", 
     "*.spec.ts"
   ], 
-  "files": ["src/core/types/express.d.ts"]
+  "files": [
+    "src/core/types/express.d.ts"
+  ]
   // "ts-node": {
   //   "esm": true,
   //   "experimentalSpecifierResolution": "node",

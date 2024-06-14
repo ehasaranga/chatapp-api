@@ -1,7 +1,6 @@
 import { DI } from "@app";
 import { User } from "@app/models/User/User";
-import { endpoint, validate } from "@core";
-import { wrap } from "@mikro-orm/core";
+import { NothingHappendError, endpoint, validate } from "@core";
 import z from "zod";
 
 export const UserUpdate = endpoint({
@@ -20,17 +19,21 @@ export const UserUpdate = endpoint({
             firstName: z.string(),
             lastName: z.string(),
             email: z.string().email()
-        }))
+        }).partial())
 
         const user = await User.repo().findOneOrFail(params.id)
 
         console.log(data)
 
-        wrap(user).assign(data)
+        const isUpdated = await User.repo().nativeUpdate(user.id, data);
+
+        console.log(isUpdated)
 
         await DI.em.flush();
 
-        res.json(user)
+        if (!isUpdated) throw new NothingHappendError('User didnt update', 202);
+
+        res.json(data)
 
     }
 })

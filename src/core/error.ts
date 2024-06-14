@@ -1,3 +1,4 @@
+import { RestError } from "@core/classes";
 import { NextFunction, Response, Request } from "express";
 import { JsonWebTokenError, NotBeforeError, TokenExpiredError } from "jsonwebtoken";
 
@@ -9,6 +10,8 @@ export const errorHandler = (err: any, req: Request, res: Response, next: NextFu
     let status = err.status ? err.status : (res.statusCode === 200) ? 500 : res.statusCode; 
 
     const message = err.message || 'Internal Server Error'; 
+
+    if (err instanceof RestError) status = err.status;
 
     if (err instanceof TokenExpiredError) status = 401;
 
