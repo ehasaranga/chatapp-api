@@ -23,11 +23,11 @@ export const UserUpdate = endpoint({
 
         const user = await User.repo().findOneOrFail(params.id)
 
-        console.log(data)
+        // console.log(data)
 
         const isUpdated = await User.repo().nativeUpdate(user.id, data);
 
-        console.log(isUpdated)
+        // console.log(isUpdated)
 
         await DI.em.flush();
 
