@@ -15,6 +15,9 @@ import { Message } from '@app/models/Messages/Message';
 import { TsMorphMetadataProvider } from '@mikro-orm/reflection';
 import { auth } from '@core/auth';
 import { errorHandler } from '@core';
+import { UserChatStatus } from '@app/models/UserChatStatus/UserChatStatus';
+import { UserDeletedChat } from '@app/models/UserDeleteChats/UserDeletedChat';
+import { UserDeletedMessage } from '@app/models/UserDeleteMessages/UserDeletedMessages';
 
 
 dotenv.config();
@@ -24,7 +27,10 @@ const PORT = process.env.PORT || 3000;
 
 const models = {
     User,
-    Message
+    Message, 
+    UserChatStatus,
+    UserDeletedChat,
+    UserDeletedMessage
 }
 
 export type TDI = {

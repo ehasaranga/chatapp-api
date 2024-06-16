@@ -1,7 +1,7 @@
-import { Entity, ManyToMany, ManyToOne, Property } from "@mikro-orm/core";
+import { Entity, Enum, ManyToMany, ManyToOne, Property } from "@mikro-orm/core";
 import { BaseEntity } from "../BaseEntity";
 import { UserEntity } from "@app/models/User/User.entity";
-import { ChatEntity, type ChatTypes } from "@app/models/Chats/Chat.entity";
+import { ChatEntity, ChatTypeEnum } from "@app/models/Chats/Chat.entity";
 
 @Entity({ tableName: 'messages' })
 export class MessageEntity extends BaseEntity {
@@ -16,7 +16,7 @@ export class MessageEntity extends BaseEntity {
   @Property()
   message!: string;
 
-  @Property()
-  chatType!: ChatTypes;
+  @Enum(() => ChatTypeEnum)
+  chatType!: ChatTypeEnum;
 
 }
