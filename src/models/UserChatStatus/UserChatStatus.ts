@@ -1,10 +1,10 @@
 import { defineModel } from "@core";
 import { DI } from "@app";
-import { UserChatStatus } from "@app/models/UserChatStatus/UserChatStatus.entity";
+import { UserChatStatusEntity } from "@app/models/UserChatStatus/UserChatStatus.entity";
 
-export const Message = defineModel({
+export const UserChatStatus = defineModel({
     name: 'UserChatStatus',
-    entity: UserChatStatus,
+    entity: UserChatStatusEntity,
     endpoints: () => [],
-    repo: () => DI.orm.em.getRepository(UserChatStatus)
+    repo: () => DI.orm.em.getRepository(UserChatStatusEntity)
 })

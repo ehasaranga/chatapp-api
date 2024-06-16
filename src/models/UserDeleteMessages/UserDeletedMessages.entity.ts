@@ -5,7 +5,7 @@ import { ChatEntity, ChatTypeEnum } from "@app/models/Chats/Chat.entity";
 import { MessageEntity } from "@app/models/Messages/Message.entity";
 
 @Entity({ tableName: 'user_deleted_messages' })
-export class UserDeletedMessages extends BaseEntity {
+export class UserDeletedMessagesEntity extends BaseEntity {
 
   @ManyToOne(() => UserEntity)
   userId!: UserEntity;

@@ -1,10 +1,10 @@
 import { defineModel } from "@core";
 import { DI } from "@app";
-import { UserDeletedChat } from "@app/models/UserDeleteChats/UserDeletedChat.entity";
+import { UserDeletedChatEntity } from "@app/models/UserDeleteChats/UserDeletedChat.entity";
 
-export const Message = defineModel({
+export const UserDeletedChat = defineModel({
     name: 'UserDeletedChat',
-    entity: UserDeletedChat,
+    entity: UserDeletedChatEntity,
     endpoints: () => [],
-    repo: () => DI.orm.em.getRepository(UserDeletedChat)
+    repo: () => DI.orm.em.getRepository(UserDeletedChatEntity)
 })
