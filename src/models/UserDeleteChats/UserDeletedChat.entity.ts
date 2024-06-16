@@ -1,4 +1,4 @@
-import { Entity, Enum, ManyToOne, Property } from "@mikro-orm/core";
+import { Entity, Enum, ManyToOne, OneToOne, Property } from "@mikro-orm/core";
 import { BaseEntity } from "../BaseEntity";
 import { UserEntity } from "@app/models/User/User.entity";
 import { ChatEntity, ChatTypeEnum } from "@app/models/Chats/Chat.entity";
@@ -9,7 +9,7 @@ export class UserDeletedChatEntity extends BaseEntity {
   @ManyToOne(() => UserEntity)
   userId!: UserEntity;
 
-  @ManyToOne(() => ChatEntity)
+  @OneToOne(() => ChatEntity)
   chatId!: ChatEntity;
 
   @Property()

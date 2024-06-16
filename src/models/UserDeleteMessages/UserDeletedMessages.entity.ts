@@ -13,7 +13,7 @@ export class UserDeletedMessagesEntity extends BaseEntity {
   @OneToOne(() => MessageEntity)
   messageId!: MessageEntity;
 
-  @ManyToOne(() => ChatEntity)
+  @OneToOne(() => ChatEntity)
   chatId!: ChatEntity;
 
   @Enum(() => ChatTypeEnum)
