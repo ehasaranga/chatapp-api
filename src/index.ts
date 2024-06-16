@@ -11,7 +11,7 @@ import { RequestContext } from '@mikro-orm/core';
 import { EntityManager, MongoDriver, MikroORM, defineConfig } from '@mikro-orm/mongodb';
 
 import { User } from '@app/models/User/User';
-import { Message } from '@app/models/Message/Message';
+import { Message } from '@app/models/Messages/Message';
 import { TsMorphMetadataProvider } from '@mikro-orm/reflection';
 import { auth } from '@core/auth';
 import { errorHandler } from '@core';
