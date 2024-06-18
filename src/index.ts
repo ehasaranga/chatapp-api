@@ -68,7 +68,7 @@ export const init = (async () => {
     app.use(helmet())
     app.use(cookieParser(process.env.COOKIE_SECRET))
     app.use(morgan('dev'))
-    app.use(express.urlencoded({ extended: false, limit: '10mb' }))
+    app.use(express.urlencoded({ extended: false, limit: '16kb' }))
     app.use(express.json())
 
     app.use((req, res, next) => {
