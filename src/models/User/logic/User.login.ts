@@ -24,7 +24,9 @@ export const UserLogin = endpoint({
             remember: z.boolean().default(false)
         }))
 
-        const user = await User.repo().findOneOrFail({ email: data.email });
+        const user = await User.repo().findOne({ email: data.email });
+
+        if (user === null) return res.status(401).json('Authentication Error') 
 
         if (!(bcrypt.compareSync(data.password, user.password))) return res.status(401).json('Authentication Error') 
 
