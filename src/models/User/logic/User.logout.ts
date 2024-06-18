@@ -9,7 +9,7 @@ export const UserLogout = endpoint({
 
         res.clearCookie('session')
 
-        res.status(200);
+        res.sendStatus(200);
 
     }
 })
