@@ -1,29 +1,58 @@
 import { RestError } from "@core/classes";
 import { NextFunction, Response, Request } from "express";
 import { JsonWebTokenError, NotBeforeError, TokenExpiredError } from "jsonwebtoken";
+import { ZodError } from "zod";
 
 
 export const errorHandler = (err: any, req: Request, res: Response, next: NextFunction) => {
 
-    console.error(err.stack); 
+    // console.error(err.stack);
 
-    let status = err.status ? err.status : (res.statusCode === 200) ? 500 : res.statusCode; 
+    let status = err.status ? err.status : (res.statusCode === 200) ? 500 : res.statusCode;
 
-    const message = err.message || 'Internal Server Error'; 
+    let message:unknown = null;
 
-    if (err instanceof RestError) status = err.status;
+    let details:unknown = null;
 
-    if (err instanceof TokenExpiredError) status = 401;
+    let name = err.name;
 
-    if (err instanceof JsonWebTokenError || err instanceof NotBeforeError) status = 403;
+    let statusMsg:StatusType = 'error';
 
-    return res.status(status).json({
-        errors: [{
-            name: err.name,
-            message: message,
-            details: err,
-            ...(process.env.NODE_ENV === 'development' && { stack: err.stack })
-        }]
-    });
+    const errRes:any = {}
+
+    switch (err.constructor) {
+
+        case RestError:
+            status = err.status
+            break;
+
+        case TokenExpiredError:
+            status = 401
+            break;
+
+        case NotBeforeError:
+        case JsonWebTokenError:
+            status = 403
+            break;
+
+        case ZodError:
+            //flatten / format is function on ZodError
+            statusMsg = 'fail';
+            details  = err.flatten()!.fieldErrors
+            message = 'Validation Failed'
+            status = 400
+
+        default:
+            break;
+    }
+
+    // if (process.env.NODE_ENV !== 'production') errRes.type = name 
+    errRes.status = statusMsg;
+    errRes.message = message || err.message || 'Internal Server Error';
+    errRes.errors = details || err;
+
+    return res.status(status).json(errRes);
 
 }
+
+type StatusType = 'error' | 'success' | 'fail';

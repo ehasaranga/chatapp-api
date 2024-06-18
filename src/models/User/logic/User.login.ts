@@ -19,7 +19,7 @@ export const UserLogin = endpoint({
         const REFRESH_SECRET = process.env.REFRESH_SECRET;
         
         const data = validate(req.body, z.object({
-            email: z.string(),
+            email: z.string().email(),
             password: z.string(),
             remember: z.boolean().default(false)
         }))
