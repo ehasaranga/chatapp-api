@@ -7,6 +7,7 @@ import { UserLogin } from "@app/models/User/logic/User.login";
 import { UserMe } from "@app/models/User/logic/User.me";
 import { UserGet } from "@app/models/User/logic/User.get";
 import { UserGetAll } from "@app/models/User/logic/User.getAll";
+import { UserLogout } from "@app/models/User/logic/User.logout";
 
 export const User = defineModel({
     name: 'User',
@@ -17,6 +18,7 @@ export const User = defineModel({
         UserCreate, 
         UserUpdate, 
         UserLogin, 
+        UserLogout, 
         UserMe,
         UserGet,
         UserGetAll,

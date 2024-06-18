@@ -1,7 +1,7 @@
 
 import { endpoint, validate } from "@core";
 
-export const UserLogin = endpoint({
+export const UserLogout = endpoint({
     path: '/logout',
     method: 'post',
     baseRoute: true,
